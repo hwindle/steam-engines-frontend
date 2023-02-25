@@ -1,0 +1,16 @@
+div.SmallPhotoCard {
+  width: 80%;
+  margin: 0 auto;
+}
+
+div.SmallPhotoCard > img {
+  width: 900px;
+  margin: 1rem auto;
+}
+
+div.SmallPhotoCard > div {
+  text-align: center;
+  font-size: 2rem;
+  line-height: 2;
+}
+

@@ -1,0 +1,44 @@
+ul#top-navigation {
+  margin: 1.6rem;
+  /* background: #f9f9f9; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+nav ul#top-navigation li {
+  list-style: none;
+  margin: 2.75rem;
+}
+
+ul#top-navigation li a {
+  text-decoration: none;
+  color: #8f8f8f;
+  font-size: 1.5rem;
+  font-weight: 500;
+  transition: all 0.4s ease-in;
+  position: relative;
+  text-transform: uppercase;
+}
+
+ul#top-navigation li a::before {
+  content: attr(data-item);
+  transition: 0.7s;
+  color: rgb(25, 118, 210);
+  font-size: 1.5rem;
+  font-weight: 600;
+  position: absolute;
+  top: -4px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+ul#top-navigation  li a:hover::before {
+  width: 100%;
+  transition: all 0.7s ease-in;
+}
