@@ -1,47 +1,49 @@
 import React from 'react';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
+import PencilIcon from '@mui/icons-material/Edit';
 import './SmallPhotoCard.css';
-// import Card from '@mui/material/Card';
-// import CardActions from '@mui/material/CardActions';
-// import CardContent from '@mui/material/CardContent';
-// import CardMedia from '@mui/material/CardMedia';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
 
 const SmallPhotoCard = ({ photo, id }) => {
   return (
     <div className='SmallPhotoCard'>
-      <img 
-        src={photo?.imageUrl}
-        alt={photo?.railwayCompany}
-      />
+      <img src={photo?.imageUrl} alt={photo?.railwayCompany} />
       <div>
-        <h3>{photo?.designer - photo?.railwayCompany}</h3>
-        <p>{photo?.description}</p>
+        <h3>Steam Engine Name</h3>
+        <p className='title'>
+          Designed by {photo?.designer} for the company {photo?.railwayCompany}
+        </p>
+        <p>
+          {photo?.description}
+          <Button target='_blank' color='secondary' href={photo?.wikiUrl}>More Info</Button>
+        </p>
+        <p>Service years: {photo?.startYear} - {photo?.endYear}</p>
+        <p className='wheels'>
+          Number of wheels:
+          <Tooltip title='Front wheels - drive wheels - wheels under cab'>
+            <span>{photo?.wheelbase}</span>
+          </Tooltip>
+        </p>
+        <section className='buttons'>
+          <Button
+            href='#'
+            variant='contained'
+            color='success'
+            startIcon={<PencilIcon />}>
+            Update
+          </Button>
+          <Button
+            href='#'
+            variant='contained'
+            color='error'
+            startIcon={<DeleteIcon />}>
+            Delete
+          </Button>
+        </section>
       </div>
     </div>
   );
 };
-
-/**
- * <Card sx={{ maxWidth: 1000 }} className='SmallPhotoCard' key={id}>
-      <CardMedia
-        sx={{ height: 500 }}
-        image={photo?.imageUrl}
-        title={photo?.railwayCompany}
-      />
-      <CardContent>
-        <Typography gutterBottom variant='h5' component='div'>
-          {photo?.designer - photo?.railwayCompany}
-        </Typography>
-        <Typography variant='body2' color='text.secondary'>
-          {photo?.description}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size='small'>Edit</Button>
-        <Button size='small'>Delete</Button>
-      </CardActions>
-    </Card>
- */
 
 export default SmallPhotoCard;

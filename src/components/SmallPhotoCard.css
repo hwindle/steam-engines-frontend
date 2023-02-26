@@ -1,16 +1,56 @@
 div.SmallPhotoCard {
-  width: 80%;
-  margin: 0 auto;
+  width: min(95vw, 80vw, 1200px);
+  margin: 1.5rem auto;
+  background: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
+  border-radius: 6px;
+  box-shadow: 
+    0px 2px 1px -1px rgba(0, 0, 0, 0.14),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.2), 
+    0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 div.SmallPhotoCard > img {
-  width: 900px;
-  margin: 1rem auto;
+  display: block;
+  margin-top: 1.4rem;
+  border-radius: 6px;
+  width: 90%;
+  align-self: center;
 }
 
 div.SmallPhotoCard > div {
-  text-align: center;
-  font-size: 2rem;
-  line-height: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+div.SmallPhotoCard > div > h3 {
+  text-align: center;
+  font-size: 2rem;
+  line-height: 1.5;
+}
+
+div.SmallPhotoCard > div > p.title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+div.SmallPhotoCard > div > p {
+  /* ch is characters */
+  max-width: 75ch;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+div.SmallPhotoCard > div > section.buttons {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: inline-flex;
+  gap: 1rem;
+}
