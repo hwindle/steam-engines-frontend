@@ -10,7 +10,7 @@ const SmallPhotoCard = ({ photo, id }) => {
     <div className='SmallPhotoCard'>
       <img src={photo?.imageUrl} alt={photo?.railwayCompany} />
       <div>
-        <h3>Steam Engine Name</h3>
+        <h3>{photo?.name || ''}</h3>
         <p className='title'>
           Designed by {photo?.designer} for the company {photo?.railwayCompany}
         </p>
