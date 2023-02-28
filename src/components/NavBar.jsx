@@ -1,22 +1,18 @@
 import { Link } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
+import './NavBar.css';
 
 const NavBar = () => {
   return (
-    <ButtonGroup
-      sx={{ width: '60%', justifyContent: 'center', alignItems: 'center' }}
-      variant='text'
-      aria-label='text button group'>
-      <Link to='/' style={{display: 'block', width: '50%'}}>
-        <Button size={'large'} fullWidth>Home</Button>
-      </Link>
-      <Link to='/addengine' style={{display: 'block', width: '50%'}}>
-        <Button size={'large'} fullWidth>
-          Add Engine
-        </Button>
-      </Link>
-    </ButtonGroup>
+    <nav id='main-nav'>
+      <ul className='top-navigation'>
+        <li>
+          <Link to='/'>Home</Link>
+        </li>
+        <li>
+          <Link to='/addengine'>Add Engine</Link>
+        </li>
+      </ul>
+    </nav>
   );
 };
 

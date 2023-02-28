@@ -10,6 +10,10 @@ import Button from '@mui/material/Button';
 import ClearIcon from '@mui/icons-material/Clear';
 import AddCircleIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
+/***
+ * Styled component and other parts to style the form and enter
+ * options into the select boxes.
+ */
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -65,8 +69,15 @@ const AddEngineForm = () => {
     '4-10-2',
   ];
 
+  /***
+   * Other functions for the form logic
+   */
+  const handleSubmit = () => {
+
+  };
+
   return (
-    <form style={formStyles}>
+    <form style={formStyles} onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4} md={3}>
           <label htmlFor='name'>Name</label>
