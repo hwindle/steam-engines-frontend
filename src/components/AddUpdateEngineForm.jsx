@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import engineSchema from '../formSchemas/engineSchema';
+import axios from 'axios';
 // material UI imports
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
@@ -71,10 +72,18 @@ const wheelsArr = [
 ];
 
 const AddEngineForm = ({oneEngine}) => {
+  const [successMessage, setSuccessMessage] = useState('');
   /***
    * Other functions for the form logic
    */
-  const onSubmit = (values, actions) => {
+  const onSubmit = async (values, actions) => {
+    try {
+      const response = await axios.post('http://localhost:3050/addengine', values);
+      console.dir(response.data);
+      setSuccessMessage('Steam engine added!');
+    } catch (err) {
+      console.error(`${err} from axios addEngine post`);
+    }
     actions.resetForm();
   };
 
@@ -112,6 +121,7 @@ const AddEngineForm = ({oneEngine}) => {
               required
               variant='standard'
               error={errors?.name}
+              helperText={errors?.name}
               onChange={handleChange}
               onBlur={handleBlur}
               defaultValue={values?.name}
@@ -167,6 +177,7 @@ const AddEngineForm = ({oneEngine}) => {
               name='startYear'
               fullWidth
               placeholder='1938'
+              helperText={errors?.startYear}
               required
               variant='standard'
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
@@ -188,6 +199,7 @@ const AddEngineForm = ({oneEngine}) => {
               variant='standard'
               fullWidth
               placeholder='1963'
+              helperText={errors?.endYear}
               required
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
               error={errors?.endYear}
@@ -280,6 +292,7 @@ const AddEngineForm = ({oneEngine}) => {
               name='imageUrl'
               fullWidth
               required
+              helperText={errors?.imageUrl}
               variant='standard'
               placeholder='Image URL'
               error={errors?.imageUrl}
@@ -329,6 +342,9 @@ const AddEngineForm = ({oneEngine}) => {
             endIcon={<AddCircleIcon />}>
             Add
           </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <p className='success-msg'>{successMessage}</p>
         </Grid>
       </Grid>
     </form>
