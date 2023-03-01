@@ -1,5 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import engineSchema from '../formSchemas/engineSchema';
+// material UI imports
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -29,52 +31,70 @@ const formStyles = {
   border: '2px solid maroon',
 };
 
-const AddEngineForm = () => {
-  const decadesArr = [
-    '1800',
-    '1810',
-    '1820',
-    '1830',
-    '1840',
-    '1850',
-    '1860',
-    '1870',
-    '1880',
-    '1890',
-    '1900',
-    '1910',
-    '1920',
-    '1930',
-    '1940',
-    '1950',
-  ];
+const decadesArr = [
+  '1800',
+  '1810',
+  '1820',
+  '1830',
+  '1840',
+  '1850',
+  '1860',
+  '1870',
+  '1880',
+  '1890',
+  '1900',
+  '1910',
+  '1920',
+  '1930',
+  '1940',
+  '1950',
+];
 
-  const wheelsArr = [
-    '2-2-2',
-    '0-4-0',
-    '2-4-0',
-    '4-4-0',
-    '2-4-2',
-    '4-4-2',
-    '0-6-0',
-    '2-6-0',
-    '4-6-0',
-    '4-6-2',
-    '2-8-0',
-    '4-8-0',
-    '2-8-2',
-    '4-8-2',
-    '4-8-4',
-    '2-10-2',
-    '4-10-2',
-  ];
+const wheelsArr = [
+  '2-2-2',
+  '0-4-0',
+  '2-4-0',
+  '4-4-0',
+  '2-4-2',
+  '4-4-2',
+  '0-6-0',
+  '2-6-0',
+  '4-6-0',
+  '4-6-2',
+  '2-8-0',
+  '4-8-0',
+  '2-8-2',
+  '4-8-2',
+  '4-8-4',
+  '2-10-2',
+  '4-10-2',
+];
 
+const AddEngineForm = ({oneEngine}) => {
   /***
    * Other functions for the form logic
    */
-  const handleSubmit = () => {
-
+  const onSubmit = (values, actions) => {
+    actions.resetForm();
   };
+
+  // gets the values from the oneEngine prop obj if this is an update
+  const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: {
+      name: oneEngine?.name || '',
+      designer: oneEngine?.designer || '',
+      railwayCompany: oneEngine?.railwayCompany || '',
+      startYear: oneEngine?.startYear || '',
+      endYear: oneEngine?.endYear || '',
+      decade: oneEngine?.decade || '',
+      wheelbase: oneEngine?.wheelbase || '',
+      wikiUrl: oneEngine?.wikiUrl || '',
+      imageUrl: oneEngine?.imageUrl || '',
+      description: oneEngine?.description || '',
+    },
+    validationSchema: engineSchema,
+    onSubmit,
+  });
 
   return (
     <form style={formStyles} onSubmit={handleSubmit}>
@@ -84,7 +104,18 @@ const AddEngineForm = () => {
         </Grid>
         <Grid item xs={12} sm={8} md={9}>
           <Item>
-            <TextField id='name' name='name' fullWidth variant='standard' />
+            <TextField
+              id='name'
+              name='name'
+              fullWidth
+              placeholder='Mallard'
+              required
+              variant='standard'
+              error={errors?.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              defaultValue={values?.name}
+            />
           </Item>
         </Grid>
 
@@ -96,8 +127,14 @@ const AddEngineForm = () => {
             <TextField
               id='designer'
               fullWidth
+              required
+              placeholder='Sir Nigel Gresley'
               name='designer'
               variant='standard'
+              error={errors?.designer}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              defaultValue={values?.designer}
             />
           </Item>
         </Grid>
@@ -110,7 +147,12 @@ const AddEngineForm = () => {
               id='railwayCompany'
               name='railwayCompany'
               variant='standard'
+              placeholder='LNER'
               fullWidth
+              error={errors?.railwayCompany}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              defaultValue={values?.railwayCompany}
             />
           </Item>
         </Grid>
@@ -124,8 +166,14 @@ const AddEngineForm = () => {
               id='startYear'
               name='startYear'
               fullWidth
+              placeholder='1938'
+              required
               variant='standard'
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              error={errors?.startYear}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              defaultValue={values?.startYear}
             />
           </Item>
         </Grid>
@@ -139,7 +187,13 @@ const AddEngineForm = () => {
               name='endYear'
               variant='standard'
               fullWidth
+              placeholder='1963'
+              required
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              error={errors?.endYear}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              defaultValue={values?.endYear}
             />
           </Item>
         </Grid>
@@ -153,6 +207,11 @@ const AddEngineForm = () => {
               id='decade'
               name='decade'
               fullWidth
+              required
+              error={errors?.decade}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              defaultValue={values?.decade}
               variant='standard'
               select>
               {decadesArr.map((option) => (
@@ -175,14 +234,17 @@ const AddEngineForm = () => {
               id='wheelbase'
               name='wheelbase'
               variant='standard'
+              error={errors?.wheelbase}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              defaultValue={values?.wheelbase}
               fullWidth
               select>
               {wheelsArr.map((option) => (
                 <MenuItem
                   key={option}
                   value={option}
-                  selected={option === '4-6-2'}
-                >
+                  selected={option === '4-6-2'}>
                   {option}
                 </MenuItem>
               ))}
@@ -200,7 +262,11 @@ const AddEngineForm = () => {
               name='wikiUrl'
               fullWidth
               variant='standard'
-              placeholder='url'
+              placeholder='URL'
+              error={errors?.wikiUrl}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              defaultValue={values?.wikiUrl}
             />
           </Item>
         </Grid>
@@ -213,8 +279,13 @@ const AddEngineForm = () => {
               id='imageUrl'
               name='imageUrl'
               fullWidth
+              required
               variant='standard'
               placeholder='Image URL'
+              error={errors?.imageUrl}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              defaultValue={values?.imageUrl}
             />
           </Item>
         </Grid>
@@ -226,22 +297,36 @@ const AddEngineForm = () => {
             <TextareaAutosize
               id='description'
               name='description'
+              error={errors?.description}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              defaultValue={values?.description}
               minRows={3}
               maxRows={6}
               aria-label='Steam engine description'
               placeholder='Please enter notes about the steam engine here'
-              style={{width: '100%', padding: 14}}
+              style={{ width: '100%', padding: 14 }}
             />
           </Item>
         </Grid>
 
         <Grid item xs={6} sm={4}>
-          <Button type='reset' variant='outlined' fullWidth size={'large'} startIcon={<ClearIcon />}>
+          <Button
+            type='reset'
+            variant='outlined'
+            fullWidth
+            size={'large'}
+            startIcon={<ClearIcon />}>
             Clear
           </Button>
         </Grid>
         <Grid item xs={6} sm={8}>
-          <Button type='submit' variant='contained' fullWidth size={'large'} endIcon={<AddCircleIcon />}>
+          <Button
+            type='submit'
+            variant='contained'
+            fullWidth
+            size={'large'}
+            endIcon={<AddCircleIcon />}>
             Add
           </Button>
         </Grid>

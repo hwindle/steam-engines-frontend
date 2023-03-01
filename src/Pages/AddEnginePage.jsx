@@ -9,7 +9,7 @@ const HomePage = () => {
     <section>
       <Header title='Add a steam loco' />
       <NavBar />
-      <AddUpdateEngineForm />
+      <AddUpdateEngineForm oneEngine={null} />
 			<Footer />
     </section>
   );
