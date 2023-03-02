@@ -1,19 +1,45 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 // MUI
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PencilIcon from '@mui/icons-material/Edit';
 import Typography from '@mui/material/Typography';
+// modals/dialogs from Material UI
 import Modal from '@mui/material/Modal';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 // My CSS/components
 import './SmallPhotoCard.css';
 import AddUpdateEngineForm from '../components/AddUpdateEngineForm';
 
 const SmallPhotoCard = ({ photo, id }) => {
+  // setting state and toggles for two modal dialog
+  // boxes for update and delete
   const [updateOpen, setUpdateOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);  
   const handleUpdateOpen = () => setUpdateOpen(true);
   const handleUpdateClose = () => setUpdateOpen(false);
+  const handleDeleteOpen = () => setDeleteOpen(true);
+  const handleDeleteClose = () => setDeleteOpen(false);
+
+  async function deleteEngine(oneEngineID) {
+    if (!oneEngineID) {
+      return;
+    }
+
+    try {
+      const deleteResponse = await axios.delete(`http://localhost:3050/deleteEngine/${oneEngineID}`);
+      console.log(deleteResponse.data);
+    } catch (err) {
+      console.error('error on delete: ' + err);
+    }
+    handleDeleteClose();
+  }
 
 
   return (
@@ -48,7 +74,7 @@ const SmallPhotoCard = ({ photo, id }) => {
             Update
           </Button>
           <Button
-            href='#'
+            onClick={handleDeleteOpen}
             variant='contained'
             color='error'
             startIcon={<DeleteIcon />}>
@@ -72,6 +98,29 @@ const SmallPhotoCard = ({ photo, id }) => {
       </Modal>
 
       {/* Delete Modal */}
+      <Dialog
+        open={deleteOpen}
+        onClose={handleDeleteClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete this steam engine?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete {photo?.railwayCompany} {photo?.name}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color='success' onClick={handleDeleteClose}>No</Button>
+          {/* Debug the 3 lines below, as it deletes every steam loco in DB for some reason */}
+          {/* onClick={deleteEngine(photo._id)} */}
+          <Button color='error' >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

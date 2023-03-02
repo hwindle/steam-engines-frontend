@@ -12,7 +12,7 @@ const EngineContainer = () => {
       try {
         setLoading(true);
         const res = await axios('http://localhost:3050/allEngines');
-        console.dir(res.data);
+        //console.dir(res.data);
         setImageData(res.data);
       } catch (error) {
         console.log('Error from search Images fetch', error);
