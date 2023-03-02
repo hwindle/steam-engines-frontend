@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import ClearIcon from '@mui/icons-material/Clear';
 import AddCircleIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 
 /***
  * Styled component and other parts to style the form and enter
@@ -52,6 +53,7 @@ const decadesArr = [
 ];
 
 const wheelsArr = [
+  '0-2-2',
   '2-2-2',
   '0-4-0',
   '2-4-0',
@@ -71,20 +73,32 @@ const wheelsArr = [
   '4-10-2',
 ];
 
-const AddEngineForm = ({oneEngine}) => {
+const AddEngineForm = ({oneEngine, update}) => {
   const [successMessage, setSuccessMessage] = useState('');
   /***
    * Other functions for the form logic
    */
   const onSubmit = async (values, actions) => {
-    try {
-      const response = await axios.post('http://localhost:3050/addengine', values);
-      console.dir(response.data);
-      setSuccessMessage('Steam engine added!');
-    } catch (err) {
-      console.error(`${err} from axios addEngine post`);
+    // add an engine
+    if (!update) {
+      try {
+        const response = await axios.post('http://localhost:3050/addengine', values);
+        // console.dir(response.data);
+        setSuccessMessage('Steam engine added!');
+      } catch (err) {
+        console.error(`${err} from axios addEngine post`);
+      }
+      actions.resetForm();
+    } else {
+      try {
+        const updateResponse = await axios.put(`http://localhost:3050/updateEngine/${oneEngine._id}`, values);
+        console.dir(updateResponse.data);
+        setSuccessMessage('Steam locomotive updated!');
+      } catch (err) {
+        console.error(`${err} from axios updateEngine put`);
+      }
+      actions.resetForm();
     }
-    actions.resetForm();
   };
 
   // gets the values from the oneEngine prop obj if this is an update
@@ -334,6 +348,7 @@ const AddEngineForm = ({oneEngine}) => {
           </Button>
         </Grid>
         <Grid item xs={6} sm={8}>
+          { !update ? 
           <Button
             type='submit'
             variant='contained'
@@ -342,6 +357,16 @@ const AddEngineForm = ({oneEngine}) => {
             endIcon={<AddCircleIcon />}>
             Add
           </Button>
+          :
+          <Button
+            type='submit'
+            variant='contained'
+            fullWidth
+            size={'large'}
+            endIcon={<PublishedWithChangesIcon />}>
+            Update
+          </Button>
+          }
         </Grid>
         <Grid item xs={12}>
           <p className='success-msg'>{successMessage}</p>

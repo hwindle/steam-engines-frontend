@@ -54,3 +54,16 @@ div.SmallPhotoCard > div > section.buttons {
   display: inline-flex;
   gap: 1rem;
 }
+
+/*** Update modal ***/
+div.update-modal {
+  width: min(90%, 900px, 70%);
+  /* height: 70vh; */
+  margin: 3rem auto;
+  background-color: antiquewhite;
+  border-radius: 15px;
+}
+
+div.update-modal > form {
+  /* margin: 1.5rem auto; */
+}
