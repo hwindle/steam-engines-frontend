@@ -17,6 +17,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import './SmallPhotoCard.css';
 import AddUpdateEngineForm from '../components/AddUpdateEngineForm';
 
+
+
 const SmallPhotoCard = ({ photo, id }) => {
   // setting state and toggles for two modal dialog
   // boxes for update and delete
@@ -33,7 +35,9 @@ const SmallPhotoCard = ({ photo, id }) => {
     }
 
     try {
-      const deleteResponse = await axios.delete(`http://localhost:3050/deleteEngine/${oneEngineID}`);
+      const deleteUrl = `http://localhost:3050/deleteEngine/${oneEngineID}`;
+      console.log(deleteUrl);
+      const deleteResponse = await axios.delete(deleteUrl);
       console.log(deleteResponse.data);
     } catch (err) {
       console.error('error on delete: ' + err);
@@ -114,9 +118,7 @@ const SmallPhotoCard = ({ photo, id }) => {
         </DialogContent>
         <DialogActions>
           <Button color='success' onClick={handleDeleteClose}>No</Button>
-          {/* Debug the 3 lines below, as it deletes every steam loco in DB for some reason */}
-          {/* onClick={deleteEngine(photo._id)} */}
-          <Button color='error' >
+          <Button color='error' onClick={() => deleteEngine(photo._id)} >
             Yes
           </Button>
         </DialogActions>
