@@ -1,0 +1,9 @@
+h1#topHeading {
+  font-family: Castoro, Georgia, serif;
+  text-shadow: -1px -1px 0 white, -2px -2px 0 white, 
+    0 0 0 white, 1px 1px 0 white, 2px 2px 0 #f1a100,
+  3px 3px 0 #7e001d, 4px 4px 0 #83001e,
+    5px 5px 0 #8c0020, 6px 6px 0 #960023,
+    7px 7px 0 #a00025, 8px 8px 0 #ee9f00,
+    9px 9px 0 #e79a00, 10px 10px 1px #e29700;
+}

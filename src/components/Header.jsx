@@ -1,9 +1,11 @@
-import { Typography } from "@mui/material";
+import { Typography } from '@mui/material';
+import './Header.css';
 
-const Header = ({title}) => {
+
+const Header = ({ title }) => {
   return (
     <header>
-      <Typography variant='h1' align='center' sx={{fontFamily: 'Castoro, Georgia, serif'}}>
+      <Typography variant='h1' align='center' id='topHeading'>
         {title || 'Heading'}
       </Typography>
     </header>

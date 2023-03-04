@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import engineSchema from '../formSchemas/engineSchema';
+import engineSchema from '../../formSchemas/engineSchema';
 import axios from 'axios';
 // material UI imports
 import Grid from '@mui/material/Grid';
@@ -73,7 +73,7 @@ const wheelsArr = [
   '4-10-2',
 ];
 
-const AddEngineForm = ({ oneEngine, update }) => {
+const AddUpdateEngineForm = ({ oneEngine, update }) => {
   // flash message at bottom
   const [successMessage, setSuccessMessage] = useState('');
   /***
@@ -397,4 +397,4 @@ const AddEngineForm = ({ oneEngine, update }) => {
   );
 };
 
-export default AddEngineForm;
+export default AddUpdateEngineForm;

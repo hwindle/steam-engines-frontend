@@ -15,8 +15,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 // My CSS/components
 import './SmallPhotoCard.css';
-import AddUpdateEngineForm from '../components/AddUpdateEngineForm';
-import { textTransform } from '@mui/system';
+import AddUpdateEngineForm from './AddUpdateEngineForm';
 
 const SmallPhotoCard = ({ photo, id, childToParent }) => {
   // setting state and toggles for two modal dialog
