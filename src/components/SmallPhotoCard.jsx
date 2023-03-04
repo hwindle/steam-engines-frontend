@@ -16,14 +16,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 // My CSS/components
 import './SmallPhotoCard.css';
 import AddUpdateEngineForm from '../components/AddUpdateEngineForm';
-
-
+import { textTransform } from '@mui/system';
 
 const SmallPhotoCard = ({ photo, id, childToParent }) => {
   // setting state and toggles for two modal dialog
   // boxes for update and delete
   const [updateOpen, setUpdateOpen] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);  
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const handleUpdateOpen = () => setUpdateOpen(true);
   const handleUpdateClose = () => setUpdateOpen(false);
   const handleDeleteOpen = () => setDeleteOpen(true);
@@ -45,7 +44,6 @@ const SmallPhotoCard = ({ photo, id, childToParent }) => {
     }
     handleDeleteClose();
   }
-
 
   return (
     <div className='SmallPhotoCard' key={id}>
@@ -95,7 +93,24 @@ const SmallPhotoCard = ({ photo, id, childToParent }) => {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <div className='update-modal'>
-          <Typography id='modal-modal-title' align='center' variant='h3' component='h2'>
+          <Button
+            onClick={handleUpdateClose}
+            sx={{
+              position: 'relative',
+              top: 0,
+              left: '92.5%',
+              backgroundColor: 'rgba(255, 255, 255, 0.7)',
+              color: 'black',
+              fontWeight: '600',
+              borderRadius: '0 15px 0 0'
+            }}>
+            X
+          </Button>
+          <Typography
+            id='modal-modal-title'
+            align='center'
+            variant='h3'
+            component='h2'>
             Update
           </Typography>
           <AddUpdateEngineForm oneEngine={photo} update={true} />
@@ -107,20 +122,22 @@ const SmallPhotoCard = ({ photo, id, childToParent }) => {
       <Dialog
         open={deleteOpen}
         onClose={handleDeleteClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Delete this steam engine?"}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'>
+        <DialogTitle id='alert-dialog-title'>
+          {'Delete this steam engine?'}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete {photo?.railwayCompany} {photo?.name}?
+          <DialogContentText id='alert-dialog-description'>
+            Are you sure you want to delete {photo?.railwayCompany}{' '}
+            {photo?.name}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button color='success' onClick={handleDeleteClose}>No</Button>
-          <Button color='error' onClick={() => deleteEngine(photo.name)} >
+          <Button color='success' onClick={handleDeleteClose}>
+            No
+          </Button>
+          <Button color='error' onClick={() => deleteEngine(photo.name)}>
             Yes
           </Button>
         </DialogActions>

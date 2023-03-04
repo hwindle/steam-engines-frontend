@@ -58,12 +58,9 @@ div.SmallPhotoCard > div > section.buttons {
 /*** Update modal ***/
 div.update-modal {
   width: min(90%, 900px, 70%);
-  /* height: 70vh; */
+  height: calc(75% + 30px);
   margin: 3rem auto;
   background-color: antiquewhite;
   border-radius: 15px;
 }
 
-div.update-modal > form {
-  /* margin: 1.5rem auto; */
-}
