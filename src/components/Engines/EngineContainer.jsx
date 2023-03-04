@@ -1,17 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import SmallPhotoCard from './SmallPhotoCard';
+import { ContextUpdate } from './EngineContext';
 
 const EngineContainer = () => {
-  const [update, setUpdate] = useState(false);
-
-  const childToParent = (childData) => {
-    setUpdate(childData);
-  };
   // useEffect
   const [locoData, setLocoData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  // use the context for getting the parent to rerender
+  // uses useMemo to prevent extra rerenders
+  const [updateEngines, setUpdateEngines] = useState(false);
+  const contextValue = useMemo(
+    () => ({ updateEngines, setUpdateEngines }), 
+    [updateEngines]
+  );
+  
 
   useEffect(() => {
     (async function () {
@@ -30,16 +34,22 @@ const EngineContainer = () => {
   }, []);
 
   return (
-    <section>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {!loading
-        ? locoData?.map((item, i) => {
-            return <SmallPhotoCard photo={item} id={i} 
-            childToParent={childToParent} />;
-          })
-        : ''}
-    </section>
+    <ContextUpdate.Provider value={contextValue}>
+      <section>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
+        {!loading
+          ? locoData?.map((item, i) => {
+              return (
+                <SmallPhotoCard
+                  photo={item}
+                  id={i}
+                />
+              );
+            })
+          : ''}
+      </section>
+    </ContextUpdate.Provider>
   );
 };
 

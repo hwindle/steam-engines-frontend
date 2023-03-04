@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 // MUI
 import Button from '@mui/material/Button';
@@ -16,8 +16,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 // My CSS/components
 import './SmallPhotoCard.css';
 import AddUpdateEngineForm from './AddUpdateEngineForm';
+import { ContextUpdate } from './EngineContext';
 
-const SmallPhotoCard = ({ photo, id, childToParent }) => {
+const SmallPhotoCard = ({ photo, id }) => {
+  // context state
+  const { updateEngines, setUpdateEngines } = useContext(ContextUpdate);
   // setting state and toggles for two modal dialog
   // boxes for update and delete
   const [updateOpen, setUpdateOpen] = useState(false);
@@ -33,11 +36,12 @@ const SmallPhotoCard = ({ photo, id, childToParent }) => {
     }
 
     try {
+      setUpdateEngines(true);
+      console.log('Context: ' + updateEngines);
       const deleteUrl = `http://localhost:3050/deleteEngine/${oneEngineID}`;
       //console.log(deleteUrl);
       const deleteResponse = await axios.delete(deleteUrl);
       console.log(deleteResponse.data);
-      childToParent(true);
     } catch (err) {
       console.error('error on delete: ' + err);
     }
@@ -113,7 +117,7 @@ const SmallPhotoCard = ({ photo, id, childToParent }) => {
             Update
           </Typography>
           <AddUpdateEngineForm oneEngine={photo} update={true} />
-          {childToParent(true)}
+          {setUpdateEngines(true)}
         </div>
       </Modal>
 
