@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import SmallPhotoCard from './SmallPhotoCard';
 
 const EngineContainer = () => {
-  const [imageData, setImageData] = useState([]);
+  const [locoData, setLocoData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -12,10 +12,10 @@ const EngineContainer = () => {
       try {
         setLoading(true);
         const res = await axios('http://localhost:3050/allEngines');
-        //console.dir(res.data);
-        setImageData(res.data);
+        console.dir(res.data);
+        setLocoData(res.data);
       } catch (error) {
-        console.log('Error from search Images fetch', error);
+        console.log('Error from search engines fetch', error);
         setError(error);
       } finally {
         setLoading(false);
@@ -28,7 +28,7 @@ const EngineContainer = () => {
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {!loading
-        ? imageData?.map((item, i) => {
+        ? locoData?.map((item, i) => {
             return <SmallPhotoCard photo={item} id={i} />;
           })
         : ''}

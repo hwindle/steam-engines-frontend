@@ -42,6 +42,7 @@ const SmallPhotoCard = ({ photo, id }) => {
     } catch (err) {
       console.error('error on delete: ' + err);
     }
+    // reset imageData from db
     handleDeleteClose();
   }
 
@@ -118,7 +119,7 @@ const SmallPhotoCard = ({ photo, id }) => {
         </DialogContent>
         <DialogActions>
           <Button color='success' onClick={handleDeleteClose}>No</Button>
-          <Button color='error' onClick={() => deleteEngine(photo._id)} >
+          <Button color='error' onClick={() => deleteEngine(photo.name)} >
             Yes
           </Button>
         </DialogActions>
