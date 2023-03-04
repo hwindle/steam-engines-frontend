@@ -19,7 +19,7 @@ import AddUpdateEngineForm from '../components/AddUpdateEngineForm';
 
 
 
-const SmallPhotoCard = ({ photo, id }) => {
+const SmallPhotoCard = ({ photo, id, childToParent }) => {
   // setting state and toggles for two modal dialog
   // boxes for update and delete
   const [updateOpen, setUpdateOpen] = useState(false);
@@ -36,13 +36,13 @@ const SmallPhotoCard = ({ photo, id }) => {
 
     try {
       const deleteUrl = `http://localhost:3050/deleteEngine/${oneEngineID}`;
-      console.log(deleteUrl);
+      //console.log(deleteUrl);
       const deleteResponse = await axios.delete(deleteUrl);
       console.log(deleteResponse.data);
+      childToParent(true);
     } catch (err) {
       console.error('error on delete: ' + err);
     }
-    // reset imageData from db
     handleDeleteClose();
   }
 
@@ -99,6 +99,7 @@ const SmallPhotoCard = ({ photo, id }) => {
             Update
           </Typography>
           <AddUpdateEngineForm oneEngine={photo} update={true} />
+          {childToParent(true)}
         </div>
       </Modal>
 

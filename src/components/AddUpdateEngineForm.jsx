@@ -74,6 +74,7 @@ const wheelsArr = [
 ];
 
 const AddEngineForm = ({oneEngine, update}) => {
+  // flash message at bottom
   const [successMessage, setSuccessMessage] = useState('');
   /***
    * Other functions for the form logic
@@ -91,7 +92,7 @@ const AddEngineForm = ({oneEngine, update}) => {
       actions.resetForm();
     } else {
       try {
-        const updateResponse = await axios.put(`http://localhost:3050/updateEngine/${oneEngine._id}`, values);
+        const updateResponse = await axios.put(`http://localhost:3050/updateEngine/${oneEngine.name}`, values);
         console.dir(updateResponse.data);
         setSuccessMessage('Steam locomotive updated!');
       } catch (err) {
