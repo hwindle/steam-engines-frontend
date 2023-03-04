@@ -73,7 +73,7 @@ const wheelsArr = [
   '4-10-2',
 ];
 
-const AddEngineForm = ({oneEngine, update}) => {
+const AddEngineForm = ({ oneEngine, update }) => {
   // flash message at bottom
   const [successMessage, setSuccessMessage] = useState('');
   /***
@@ -83,7 +83,10 @@ const AddEngineForm = ({oneEngine, update}) => {
     // add an engine
     if (!update) {
       try {
-        const response = await axios.post('http://localhost:3050/addengine', values);
+        const response = await axios.post(
+          'http://localhost:3050/addengine',
+          values
+        );
         // console.dir(response.data);
         setSuccessMessage('Steam engine added!');
       } catch (err) {
@@ -92,7 +95,10 @@ const AddEngineForm = ({oneEngine, update}) => {
       actions.resetForm();
     } else {
       try {
-        const updateResponse = await axios.put(`http://localhost:3050/updateEngine/${oneEngine.name}`, values);
+        const updateResponse = await axios.put(
+          `http://localhost:3050/updateEngine/${oneEngine.name}`,
+          values
+        );
         console.dir(updateResponse.data);
         setSuccessMessage('Steam locomotive updated!');
       } catch (err) {
@@ -349,28 +355,42 @@ const AddEngineForm = ({oneEngine, update}) => {
           </Button>
         </Grid>
         <Grid item xs={6} sm={8}>
-          { !update ? 
-          <Button
-            type='submit'
-            variant='contained'
-            fullWidth
-            size={'large'}
-            endIcon={<AddCircleIcon />}>
-            Add
-          </Button>
-          :
-          <Button
-            type='submit'
-            variant='contained'
-            fullWidth
-            size={'large'}
-            endIcon={<PublishedWithChangesIcon />}>
-            Update
-          </Button>
-          }
+          {!update ? (
+            <Button
+              type='submit'
+              variant='contained'
+              fullWidth
+              size={'large'}
+              endIcon={<AddCircleIcon />}>
+              Add
+            </Button>
+          ) : (
+            <Button
+              type='submit'
+              variant='contained'
+              fullWidth
+              size={'large'}
+              endIcon={<PublishedWithChangesIcon />}>
+              Update
+            </Button>
+          )}
         </Grid>
         <Grid item xs={12}>
-          <p className='success-msg'>{successMessage}</p>
+          {successMessage ? 
+          <p
+            style={{
+              width: '40ch',
+              margin: '0.3rem auto',
+              backgroundColor: 'rgba(255, 255, 255, 0.4)',
+              border: '1px solid green',
+              padding: '0.8rem',
+              fontSize: '1.2rem',
+              textAlign: 'center',
+              borderRadius: 5,
+            }}>
+            {successMessage}
+          </p>
+          : '' }
         </Grid>
       </Grid>
     </form>
