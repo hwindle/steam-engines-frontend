@@ -140,7 +140,7 @@ const SmallPhotoCard = ({ photo, id }) => {
           <Button color='success' onClick={handleDeleteClose}>
             No
           </Button>
-          <Button color='error' onClick={() => deleteEngine(photo.name)}>
+          <Button color='error' onClick={() => deleteEngine(photo._id)}>
             Yes
           </Button>
         </DialogActions>

@@ -96,7 +96,7 @@ const AddUpdateEngineForm = ({ oneEngine, update }) => {
     } else {
       try {
         const updateResponse = await axios.put(
-          `http://localhost:3050/updateEngine/${oneEngine.name}`,
+          `http://localhost:3050/updateEngine/${oneEngine._id}`,
           values
         );
         console.dir(updateResponse.data);
