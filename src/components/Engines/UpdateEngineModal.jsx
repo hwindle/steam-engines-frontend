@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 // Material UI
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -7,24 +7,20 @@ import Button from '@mui/material/Button';
 import { ContextUpdate } from './EngineContext';
 import AddUpdateEngineForm from './AddUpdateEngineForm';
 
-const UpdateEngineModal = ({ oneEngine, updateBoxOpen }) => {
+const UpdateEngineModal = ({ oneEngine, updateOpen, updateClose }) => {
   // context state
   const { updateEngines, setUpdateEngines } = useContext(ContextUpdate);
-  // other state
-  const [updateOpen, setUpdateOpen] = useState(false);
-  //const handleUpdateOpen = () => setUpdateOpen(true);
-  const handleUpdateClose = () => (updateBoxOpen = false);
-  // if button is clicked in the SmallPhotoCard parent, this is true
+  
 
   return (
     <Modal
-        open={updateBoxOpen}
-        onClose={handleUpdateClose}
+        open={updateOpen}
+        onClose={updateClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <div className='update-modal'>
           <Button
-            onClick={handleUpdateClose}
+            onClick={updateClose}
             sx={{
               position: 'relative',
               top: 0,

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
+// context
+import { ContextUpdate } from './EngineContext';
 // mui
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -8,11 +10,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
-const DeleteEngineModal = ({ index, deleteBoxOpen }) => {
-  const [deleteOpen, setDeleteOpen] = useState(false);
-  
-  //const handleDeleteOpen = () => setDeleteOpen(true);
-  const handleDeleteClose = () => (deleteBoxOpen = false);
+const DeleteEngineModal = ({ index, deleteOpen, deleteClose }) => {
+  // context state
+  const { updateEngines, setUpdateEngines } = useContext(ContextUpdate);
 
   async function deleteEngine(index) {
     if (!index) {
@@ -25,13 +25,14 @@ const DeleteEngineModal = ({ index, deleteBoxOpen }) => {
     } catch (err) {
       console.error('error on delete: ' + err);
     }
-    handleDeleteClose();
+    setUpdateEngines(true);
+    deleteClose();
   }
 
   return (
     <Dialog
-        open={deleteBoxOpen}
-        onClose={handleDeleteClose}
+        open={deleteOpen}
+        onClose={deleteClose}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'>
         <DialogTitle id='alert-dialog-title'>
@@ -43,7 +44,7 @@ const DeleteEngineModal = ({ index, deleteBoxOpen }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button color='success' onClick={handleDeleteClose}>
+          <Button color='success' onClick={deleteClose}>
             No
           </Button>
           <Button color='error' onClick={() => deleteEngine(index)}>

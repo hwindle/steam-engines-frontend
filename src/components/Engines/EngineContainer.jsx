@@ -4,7 +4,7 @@ import SmallPhotoCard from './SmallPhotoCard';
 import { ContextUpdate } from './EngineContext';
 
 const EngineContainer = () => {
-  // useEffect
+  // useEffect get all data
   const [locoData, setLocoData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -31,7 +31,7 @@ const EngineContainer = () => {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [updateEngines]);
 
   return (
     <ContextUpdate.Provider value={contextValue}>

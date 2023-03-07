@@ -9,11 +9,19 @@ import './SmallPhotoCard.css';
 import UpdateEngineModal from './UpdateEngineModal';
 import DeleteEngineModal from './DeleteEngineModal';
 
-
 const SmallPhotoCard = ({ photo, id }) => {
+
   // for showing either update modal or delete modal
-  const [handleUpdate, setHandleUpdate] = useState(false);
-  const [handleDelete, setHandleDelete] = useState(false);
+  // Update modal state
+  const [updateOpen, setUpdateOpen] = useState(false);
+  const handleUpdateOpen = () => setUpdateOpen(true);
+  const handleUpdateClose = () => setUpdateOpen(false);
+  // delete modal state
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const handleDeleteOpen = () => setDeleteOpen(true);
+  const handleDeleteClose = () => setDeleteOpen(false);
+
+  
 
   return (
     <div className='SmallPhotoCard' key={id}>
@@ -40,14 +48,14 @@ const SmallPhotoCard = ({ photo, id }) => {
         </p>
         <section className='buttons'>
           <Button
-            onClick={() => setHandleUpdate(true)}
+            onClick={handleUpdateOpen}
             variant='contained'
             color='success'
             startIcon={<PencilIcon />}>
             Update
           </Button>
           <Button
-            onClick={() => setHandleDelete(true)}
+            onClick={handleDeleteOpen}
             variant='contained'
             color='error'
             startIcon={<DeleteIcon />}>
@@ -57,9 +65,16 @@ const SmallPhotoCard = ({ photo, id }) => {
       </div>
 
       {/* MODALS */}
-      <UpdateEngineModal oneEngine={photo} updateBoxOpen={handleUpdate} />
-      <DeleteEngineModal index={photo._id} deleteBoxOpen={handleDelete} />
-      
+      <UpdateEngineModal
+        oneEngine={photo}
+        updateOpen={updateOpen}
+        updateClose={handleUpdateClose}
+      />
+      <DeleteEngineModal
+        index={photo._id}
+        deleteOpen={deleteOpen}
+        deleteClose={handleDeleteClose}
+      />
     </div>
   );
 };
